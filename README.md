@@ -3,10 +3,10 @@
 ![](https://i.imgur.com/KE4u2Dg.png)
 
 ## Description
-This is a buggy and imperfect demo of teleportation portals in the Godot Engine, the portals are not at all perfect and there are problems.
+This is a buggy and imperfect demo of teleportation portals in the Godot Engine.
 
 I did my best to comment the portal.gd script, but that's the only script I added comments to.<br />
-Also, I'm not an amazing programmer or Godot user so parts of the code may be wack watch out.
+Also, I'm not an amazing programmer or Godot user so parts of the code may be wack.
 
 ## Controls
 Use `left/right mouse button` to shoot portals<br />
