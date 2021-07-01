@@ -22,5 +22,8 @@ https://www.youtube.com/watch?v=cWpFZbjtSQg&t=574s
 DigiDigger's video on portals:<br />
 https://www.youtube.com/watch?v=_SmPR5mvH7w&t=267s
 
+I am using Bauxitedev's motion blur shader:<br />
+https://github.com/Bauxitedev/godot-motion-blur
+
 I partly modified a script made by turtlewit and Blasterott18 for the player controller:<br />
 https://github.com/turtlewit/VineCrawler/blob/master/PlayerNew.gd
