@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/shoot.mp3-d7af02b3b526282fdeab85cf42148fb6.mp3str"
+
+[deps]
+
+source_file="res://Audio/Portal/shoot.mp3"
+dest_files=[ "res://.import/shoot.mp3-d7af02b3b526282fdeab85cf42148fb6.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

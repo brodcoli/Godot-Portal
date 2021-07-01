@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/b.wav-01f03197504c7aaa56cfa12c464c188e.sample"
+
+[deps]
+
+source_file="res://Audio/Water/Bubble/b.wav"
+dest_files=[ "res://.import/b.wav-01f03197504c7aaa56cfa12c464c188e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

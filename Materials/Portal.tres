@@ -1,0 +1,37 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode unshaded;//, cull_disabled;
+uniform vec4 modulate : hint_color;
+uniform sampler2D overlay : hint_albedo;
+uniform sampler2D texture_albedo : hint_albedo;
+
+void fragment() {
+	vec2 base_uv = SCREEN_UV;
+	vec4 view = texture(texture_albedo, base_uv);
+	
+	vec2 outline_uv = UV;
+	vec4 outline = texture(overlay, outline_uv);
+	
+	if(outline.rgb == vec3(1.0, 0.0, 0.0)){
+		ALBEDO = view.rgb;
+	}else{
+		ALBEDO = outline.rgb * modulate.rgb;
+		ALPHA = outline.a;
+	}
+
+	//ALBEDO = view.rgb;
+}"
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 1, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[resource]
+shader = SubResource( 1 )
+shader_param/modulate = Color( 1, 0.352941, 0, 1 )
+shader_param/overlay = SubResource( 3 )

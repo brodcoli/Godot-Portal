@@ -1,0 +1,331 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://Scripts/Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Screens/LoadingScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Screens/PauseScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://motion_blur/motion_blur.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Player/Arms.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Screens/DeathScreen.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Player/Feet.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/Player/Waist.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/Player/Camera.gd" type="Script" id=13]
+[ext_resource path="res://Audio/Water/Underwater.wav" type="AudioStream" id=17]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.4, 0.4, 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Crouch"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape:shape:extents")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.4, 0.4, 1 ), Vector3( 0.4, 0.4, 0.8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1, 0 ), Vector3( 0, 1.2, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Feet:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.5, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Stand"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape:shape:extents")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.4, 0.4, 0.8 ), Vector3( 0.4, 0.4, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1.2, 0 ), Vector3( 0, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Feet:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.5, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "BallGunIdle"
+length = 0.001
+
+[sub_resource type="Animation" id=5]
+length = 0.3
+
+[sub_resource type="Animation" id=6]
+resource_name = "hurt"
+length = 0.8
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/CameraOffset/Camera:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 4, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Bob"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/CameraOffset/Camera:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.005, 0, 0 ), Vector3( 0.005, 0, 0 ), Vector3( -0.005, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/CameraOffset/Camera:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.1, 0.2, 0 ), Vector3( -0.1, 0, 0 ), Vector3( 0.1, -0.2, 0 ), Vector3( -0.1, 0, 0 ), Vector3( 0.1, 0.2, 0 ) ]
+}
+
+[sub_resource type="SphereShape" id=8]
+radius = 0.1
+
+[sub_resource type="CubeMesh" id=9]
+size = Vector3( 0.5, 0.5, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=10]
+albedo_color = Color( 0.4, 0.435294, 1, 1 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 0.4, 0.2, 0.4 )
+
+[sub_resource type="BoxShape" id=12]
+extents = Vector3( 0.4, 0.2, 0.4 )
+
+[sub_resource type="StreamTexture" id=13]
+flags = 4
+load_path = "res://.import/cursor.png-1ae6d19c7c39f3caa0e0cf655b5793b4.stex"
+
+[sub_resource type="CubeMesh" id=14]
+size = Vector3( 0.2, 1, 0.2 )
+
+[node name="Player" type="KinematicBody" groups=[
+"player",
+]]
+collision_layer = 5
+collision_mask = 5
+script = ExtResource( 1 )
+
+[node name="CanTeleport" type="Node" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="CrouchAnimator" type="AnimationPlayer" parent="."]
+anims/Crouch = SubResource( 2 )
+anims/Stand = SubResource( 3 )
+
+[node name="BallGunAnimator" type="AnimationPlayer" parent="."]
+anims/BallGunIdle = SubResource( 4 )
+anims/BallGunLaunch = SubResource( 5 )
+
+[node name="HurtAnimator" type="AnimationPlayer" parent="."]
+anims/hurt = SubResource( 6 )
+
+[node name="BobAnimator" type="AnimationPlayer" parent="."]
+anims/Bob = SubResource( 7 )
+
+[node name="StepRays" type="Spatial" parent="."]
+
+[node name="Feet" type="RayCast" parent="StepRays"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0361776, 0 )
+cast_to = Vector3( 0, 0, -1.2 )
+
+[node name="Test" type="RayCast" parent="StepRays"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+cast_to = Vector3( 0, 0, -1.2 )
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+
+[node name="CameraOffset" type="Spatial" parent="Head"]
+
+[node name="Camera" type="ClippedCamera" parent="Head/CameraOffset" groups=[
+"player_cam",
+]]
+transform = Transform( 0.999994, 6.09234e-06, 0.00349064, 0, 0.999999, -0.00174533, -0.00349065, 0.00174532, 0.999992, -0.005, 0, 0 )
+cull_mask = 1048543
+current = true
+far = 400.0
+script = ExtResource( 13 )
+
+[node name="Area" type="Area" parent="Head/CameraOffset/Camera"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Head/CameraOffset/Camera/Area"]
+shape = SubResource( 8 )
+
+[node name="LookRay" type="RayCast" parent="Head/CameraOffset/Camera" groups=[
+"player_cam_ray",
+]]
+transform = Transform( 1, 5.77529e-11, -2.32831e-10, -5.82077e-11, 1, 2.32831e-10, -2.98023e-08, 1.16415e-10, 1, 0, 0, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -4 )
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="PortalRay" type="RayCast" parent="Head/CameraOffset/Camera"]
+transform = Transform( 1, -2.27374e-12, -1.62981e-09, -9.09495e-13, 1, 8.14907e-10, 0, 0, 1, 0, 0, 0 )
+cast_to = Vector3( 0, 0, -100 )
+collide_with_areas = true
+
+[node name="motion_blur" parent="Head/CameraOffset/Camera" instance=ExtResource( 4 )]
+transform = Transform( 1, -2.27374e-12, -2.56114e-09, -4.09273e-12, 1, 1.28057e-09, 0, 0, 1, 2.79397e-09, 0, -2 )
+
+[node name="HeadMesh" type="MeshInstance" parent="Head"]
+mesh = SubResource( 9 )
+material/0 = SubResource( 10 )
+
+[node name="A" type="Position3D" parent="Head"]
+
+[node name="B" type="Position3D" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+
+[node name="Arms" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+script = ExtResource( 5 )
+
+[node name="Waist" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.687509, 0 )
+script = ExtResource( 12 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Waist"]
+shape = SubResource( 11 )
+
+[node name="Feet" type="Area" parent="."]
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Feet"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+shape = SubResource( 12 )
+
+[node name="SFXCamTransform" type="RemoteTransform" parent="Feet"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.30417, 0 )
+remote_path = NodePath("../SFXViewport/SFXCam")
+
+[node name="SFXViewport" type="Viewport" parent="Feet"]
+size = Vector2( 3, 3 )
+hdr = false
+keep_3d_linear = true
+
+[node name="SFXCam" type="Camera" parent="Feet/SFXViewport"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.30417, 0 )
+cull_mask = 32
+current = true
+
+[node name="LoadingScreen" parent="." instance=ExtResource( 2 )]
+
+[node name="PauseScreen" parent="." instance=ExtResource( 3 )]
+
+[node name="DeathScreen" parent="." instance=ExtResource( 6 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.26001
+margin_right = -1.26001
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cursor" type="TextureRect" parent="CanvasLayer/CenterContainer"]
+margin_left = 502.0
+margin_top = 290.0
+margin_right = 521.0
+margin_bottom = 309.0
+texture = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Underwater" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = -18.0
+
+[node name="BodyMesh" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94158, 0 )
+visible = false
+mesh = SubResource( 14 )
+material/0 = SubResource( 10 )
+
+[connection signal="area_entered" from="Head/CameraOffset/Camera/Area" to="Head/CameraOffset/Camera" method="_on_area_entered"]
+[connection signal="area_exited" from="Head/CameraOffset/Camera/Area" to="Head/CameraOffset/Camera" method="_on_area_exited"]
+[connection signal="area_entered" from="Waist" to="Waist" method="_on_area_entered"]
+[connection signal="area_exited" from="Waist" to="Waist" method="_on_area_exited"]
+[connection signal="area_shape_entered" from="Feet" to="Feet" method="_on_area_entered"]
+[connection signal="area_shape_exited" from="Feet" to="Feet" method="_on_area_exited"]
+[connection signal="body_entered" from="Feet" to="Feet" method="_on_body_entered"]

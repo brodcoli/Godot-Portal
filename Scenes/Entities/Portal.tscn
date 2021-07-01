@@ -1,0 +1,161 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scripts/Portal.gd" type="Script" id=1]
+[ext_resource path="res://Materials/Portal.tres" type="Material" id=2]
+
+[sub_resource type="QuadMesh" id=1]
+material = ExtResource( 2 )
+size = Vector2( 1.7, 2.8 )
+
+[sub_resource type="QuadMesh" id=2]
+material = ExtResource( 2 )
+size = Vector2( 0.4, 2.8 )
+
+[sub_resource type="QuadMesh" id=3]
+material = ExtResource( 2 )
+size = Vector2( 0.4, 1.7 )
+
+[sub_resource type="CubeMesh" id=4]
+material = ExtResource( 2 )
+size = Vector3( 1.7, 2.8, 0.2 )
+
+[sub_resource type="Environment" id=5]
+tonemap_exposure = 0.01
+ssao_enabled = true
+adjustment_enabled = true
+adjustment_brightness = 7.0
+
+[sub_resource type="Shader" id=6]
+code = "shader_type spatial;
+
+uniform vec4 albedo_color : hint_color;
+
+void fragment(){
+	ALBEDO = albedo_color.rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/albedo_color = null
+
+[sub_resource type="SphereMesh" id=8]
+material = SubResource( 7 )
+radius = 0.2
+height = 0.4
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 0.866, 0.064, 0.05 )
+
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 1.494, 0.064, 0.05 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 0.889, 1.54, 0.212636 )
+
+[sub_resource type="BoxShape" id=12]
+extents = Vector3( 0.889, 1.54, 0.04 )
+
+[node name="Portal" type="Spatial"]
+script = ExtResource( 1 )
+color = Color( 1, 0.352941, 0, 1 )
+
+[node name="Meshes" type="Spatial" parent="."]
+
+[node name="Front" type="MeshInstance" parent="Meshes"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Clip" type="Spatial" parent="Meshes"]
+visible = false
+
+[node name="Back" type="MeshInstance" parent="Meshes/Clip"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Left" type="MeshInstance" parent="Meshes/Clip"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.85, 0, -0.2 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Right" type="MeshInstance" parent="Meshes/Clip"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.85, 0, -0.1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Top" type="MeshInstance" parent="Meshes/Clip"]
+transform = Transform( 1.31134e-07, 1, 4.37114e-08, 3.82137e-15, 4.37114e-08, -1, -1, 1.31134e-07, 1.91069e-15, 0, 1.4, -0.2 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Bottom" type="MeshInstance" parent="Meshes/Clip"]
+transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, -1.4, -0.1 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="CamTransform" type="RemoteTransform" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+remote_path = NodePath("../Viewport/Camera")
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 5, 5 )
+fxaa = true
+
+[node name="Camera" type="Camera" parent="Viewport"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+environment = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Viewport/Camera"]
+visible = false
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50015, 0 )
+shape = SubResource( 9 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66802, 0 )
+shape = SubResource( 9 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="StaticBody"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.911693, 0.0893495, 0 )
+shape = SubResource( 10 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="StaticBody"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.92039, 0, 0 )
+shape = SubResource( 10 )
+
+[node name="ClipArea" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="ClipArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.114094, 0 )
+shape = SubResource( 11 )
+
+[node name="PortalArea" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="PortalArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.114094, 0 )
+shape = SubResource( 12 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "N/A"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="body_entered" from="ClipArea" to="." method="_on_ClipArea_body_entered"]
+[connection signal="body_exited" from="ClipArea" to="." method="_on_ClipArea_body_exited"]
+[connection signal="body_entered" from="PortalArea" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="PortalArea" to="." method="_on_body_exited"]

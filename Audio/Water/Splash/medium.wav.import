@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/medium.wav-8e46d7c57f0e0269349ca31f2a56dfe4.sample"
+
+[deps]
+
+source_file="res://Audio/Water/Splash/medium.wav"
+dest_files=[ "res://.import/medium.wav-8e46d7c57f0e0269349ca31f2a56dfe4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

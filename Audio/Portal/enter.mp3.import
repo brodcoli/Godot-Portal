@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/enter.mp3-3f3ca4cdf482019caa258b8ed4bbc649.mp3str"
+
+[deps]
+
+source_file="res://Audio/Portal/enter.mp3"
+dest_files=[ "res://.import/enter.mp3-3f3ca4cdf482019caa258b8ed4bbc649.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
