@@ -33,10 +33,7 @@ func _ready():
 	$"Viewport/Camera/MeshInstance".material_override = $"Viewport/Camera/MeshInstance".mesh.surface_get_material(0).duplicate()
 	
 func _process(delta):
-	# Get direction player is looking
-	var look_dir = _player_cam.global_transform.basis.get_euler()
-
-	# Do snazzy matrix multiplication stuff so that the magic can happen
+	# Set the portal's camera transform to the player's camera relative to the other portal
 	var trans = other_portal.global_transform.inverse() * _player_cam.global_transform
 	# Rotate by 180 degrees around the up axis because the camera should be facing the opposite way (180 degrees) at the other portal
 	trans = trans.rotated(Vector3.UP, PI)
@@ -81,8 +78,8 @@ func _teleport_to_other_portal(body):
 	
 	# If the body is the player,
 	# get the difference in rotation of this portal and the other portal
-	# and rotate the player's velocity by that (one axis at a time because idk how to do it in one line)
-	# +180 degrees on the y axis so the velocity is reversed
+	# and rotate the player's velocity by that
+	# +180 degrees on the y axis
 	if body is Player:
 		var r = other_portal.global_transform.basis.get_euler() - global_transform.basis.get_euler()
 		body.velocity = body.velocity \
@@ -93,7 +90,7 @@ func _teleport_to_other_portal(body):
 func _on_body_entered(body):
 	# If body enters portal, disable its collision on bit 0
 	# so if the portal is on a wall the player can pass through
-	# but still be able to stand on the portal's collision, which is on another bit
+	# but still be able to stand on the portal's collision
 	if body is PhysicsBody:
 		body.set_collision_layer_bit(0, false)
 		
@@ -109,7 +106,7 @@ func _on_body_exited(body):
 		body.set_collision_layer_bit(0, true)
 		
 	# If a body exits portal, it will be removed from being tracked
-	# if it of course has a CanTelport child node and was already being tracked
+	# if it has a CanTelport child node and was already being tracked
 	if body.has_node("CanTeleport"):
 		var i = tracked_bodies.find(body)
 		if not i == -1:
@@ -119,7 +116,7 @@ func _on_ClipArea_body_entered(body):
 	# If a body that can teleport enters the ClipArea area,
 	# then make the inside meshes of the portal be visible
 	# This helps with flickering when entering portals,
-	# but theres still flickering so idk how much its helping
+	# but theres still flickering most of the time so im not sure how much its helping
 	if body.has_node("CanTeleport"):
 		$Meshes/Clip.visible = true
 
