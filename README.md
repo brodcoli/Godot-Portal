@@ -1,5 +1,6 @@
-# Godot-Portal
+# Godot-Portal (Godot 3.5)
 
+*This project was last tested in Godot 3.5 and **does not work with Godot 4.0***
 ![](https://i.imgur.com/KE4u2Dg.png)
 
 ## Description
